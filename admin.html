@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Mamanew Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F7F1E9;--cream-2:#EFE6DA;--paper:#FBF8F3;--blush:#F3DDE0;--rose:#D29EA7;--rose-deep:#B5727F;--petal:#F7E6E9;--sage:#A9B79A;--sage-light:#E2E7D8;--green:#2E4535;--green-2:#3C5A45;--butter:#F4E6BF;--ink:#2B3A2F;--ink-soft:#5E6C62;--red:#A0434F;
+--display:"Fraunces",Georgia,serif;--serif:"Cormorant Garamond",Georgia,serif;--ui:"Jost",system-ui,sans-serif;--ease:cubic-bezier(.22,1,.36,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+body{background:var(--cream);color:var(--ink);font-family:var(--ui);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+.d{font-family:var(--display);font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:600;letter-spacing:-.01em;color:var(--green)}
+.wrap{width:min(1100px,100% - 28px);margin-inline:auto}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:24px;color:var(--green);font-weight:500;text-decoration:none}
+.logo-mark{width:36px;height:36px;border-radius:50%;background:var(--sage-light);display:grid;place-items:center}
+.logo-mark svg{width:22px;height:22px}.logo-mark path{fill:none;stroke:var(--green);stroke-width:3;stroke-linecap:round}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;background:var(--green);color:var(--cream);font-size:14px;font-weight:500;letter-spacing:.02em;transition:background .3s,transform .3s var(--ease);white-space:nowrap;text-decoration:none}
+.btn:hover{background:var(--rose-deep)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--green);box-shadow:inset 0 0 0 1.5px rgba(46,69,53,.25)}
+.btn.ghost:hover{background:var(--blush);box-shadow:none}
+.btn.soft{background:var(--blush);color:var(--green)}
+.btn.soft:hover{background:var(--rose);color:#fff}
+.btn.sm{padding:8px 14px;font-size:13px}
+.btn.danger{background:transparent;color:var(--red);box-shadow:inset 0 0 0 1.5px rgba(160,67,79,.3)}
+.btn.danger:hover{background:var(--red);color:#fff}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.icon-btn{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:var(--ink-soft);transition:background .3s,color .3s}
+.icon-btn:hover{background:var(--blush);color:var(--red)}
+.icon-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+label.f{display:block}
+label.f span{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:6px;font-weight:500}
+input.in,select.in,textarea.in{width:100%;background:var(--paper);border:1.5px solid rgba(46,69,53,.14);border-radius:14px;padding:12px 14px;font-size:15.5px;outline:none;transition:border-color .3s,background .3s}
+input.in:focus,select.in:focus,textarea.in:focus{border-color:var(--rose);background:#fff}
+textarea.in{min-height:80px;resize:vertical}
+.hint{font-size:13px;color:var(--ink-soft);margin-top:6px}
+.err{color:var(--red);font-size:14px}
+
+/* login */
+.login{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(70% 60% at 100% 0%,var(--blush),transparent 60%),radial-gradient(60% 60% at 0% 100%,var(--sage-light),transparent 60%),var(--cream)}
+.login-card{width:min(420px,100%);background:var(--paper);border-radius:32px;padding:40px 32px;box-shadow:0 40px 90px -50px rgba(46,69,53,.5);animation:rise .8s var(--ease)}
+@keyframes rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.login-card h1{font-size:34px;margin:22px 0 6px}
+.login-card p{color:var(--ink-soft);margin-bottom:24px}
+.login-card form{display:grid;gap:14px}
+.login-card .btn{padding:15px}
+.pw-wrap{position:relative}
+.pw-wrap button{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--rose-deep);letter-spacing:.06em;text-transform:uppercase;padding:6px}
+
+/* app shell */
+.top{position:sticky;top:0;z-index:50;background:rgba(247,241,233,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(46,69,53,.08)}
+.top-in{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
+.top .tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;background:var(--green);color:var(--cream);padding:4px 10px;border-radius:999px;margin-left:4px}
+.top-actions{display:flex;gap:8px}
+.tabs{display:flex;gap:4px;padding:5px;background:var(--cream-2);border-radius:999px;margin:22px 0 26px;width:max-content;max-width:100%;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:10px 18px;border-radius:999px;font-weight:500;font-size:14px;color:var(--ink-soft);white-space:nowrap;transition:background .35s,color .35s}
+.tab.on{background:var(--green);color:var(--cream)}
+.tab b{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--rose);color:#fff;font-size:11px;margin-left:6px}
+.demo{background:var(--butter);color:var(--green);font-size:13.5px;padding:10px 14px;border-radius:14px;margin-top:18px;display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.demo button{text-decoration:underline;font-size:13px}
+.view{animation:rise .6s var(--ease)}
+.head{display:flex;justify-content:space-between;align-items:end;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.head h2{font-size:34px;line-height:1}
+.head p{color:var(--ink-soft);margin-top:6px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+.stat{background:var(--paper);border-radius:20px;padding:16px 18px;border:1px solid rgba(46,69,53,.07)}
+.stat b{display:block;font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:500;font-size:34px;line-height:1.05;color:var(--green)}
+.stat span{font-size:12.5px;color:var(--ink-soft);letter-spacing:.04em}
+.stat.warn b{color:var(--rose-deep)}
+
+/* class cards */
+.list{display:grid;gap:14px}
+.ccard{background:var(--paper);border-radius:24px;border:1px solid rgba(46,69,53,.08);box-shadow:0 20px 50px -40px rgba(46,69,53,.45);overflow:hidden}
+.ccard-top{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:18px 20px}
+.cdate{width:62px;height:70px;border-radius:999px 999px 16px 16px;background:var(--blush);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--green)}
+.cdate small{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase}
+.cdate b{font-family:var(--display);font-variation-settings:"SOFT" 100;font-size:26px;line-height:1;font-weight:600}
+.ctitle{font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:600;font-size:20px;color:var(--green);line-height:1.15}
+.cmeta{font-size:13.5px;color:var(--ink-soft);margin-top:2px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.badge{font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:999px;background:var(--sage-light);color:var(--green);font-weight:500}
+.badge.full{background:var(--green);color:var(--cream)}
+.badge.closed{background:var(--butter)}
+.badge.hidden{background:var(--cream-2);color:var(--ink-soft)}
+.badge.unpaid{background:var(--petal);color:var(--rose-deep)}
+.cap{text-align:right}
+.cap b{font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:500;font-size:28px;color:var(--green);line-height:1}
+.cap small{display:block;font-size:12px;color:var(--ink-soft)}
+.bar{height:6px;border-radius:6px;background:var(--cream-2);overflow:hidden;width:90px;margin:8px 0 0 auto}
+.bar i{display:block;height:100%;background:var(--rose);border-radius:6px;transition:width .8s var(--ease)}
+.ccard-actions{display:flex;gap:8px;flex-wrap:wrap;padding:0 20px 16px}
+.people{border-top:1px solid rgba(46,69,53,.08);background:var(--cream)}
+.people-head{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);gap:10px;flex-wrap:wrap}
+.people-head .acts{display:flex;gap:8px;text-transform:none;letter-spacing:0}
+.person{display:grid;grid-template-columns:1.2fr 1.6fr auto auto;gap:12px;align-items:center;padding:12px 20px;border-top:1px dashed rgba(46,69,53,.1);font-size:14.5px}
+.person .nm{font-weight:600;color:var(--green)}
+.person .nm small{display:block;font-weight:400;color:var(--ink-soft);font-size:12.5px}
+.person .ct a{display:block;color:var(--ink);text-decoration:none;word-break:break-word}
+.person .ct a:hover{color:var(--rose-deep);text-decoration:underline}
+.person .note{grid-column:1/-1;font-size:13.5px;color:var(--ink-soft);font-style:italic;margin-top:-4px}
+.none{padding:14px 20px;color:var(--ink-soft);font-size:14px;border-top:1px dashed rgba(46,69,53,.1)}
+.switch{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-soft);cursor:pointer;user-select:none}
+.switch input{appearance:none;-webkit-appearance:none;width:40px;height:24px;border-radius:999px;background:var(--cream-2);position:relative;transition:background .3s;cursor:pointer;border:1.5px solid rgba(46,69,53,.15)}
+.switch input::after{content:"";position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.2);transition:transform .35s var(--ease)}
+.switch input:checked{background:var(--sage);border-color:var(--sage)}
+.switch input:checked::after{transform:translateX(16px)}
+.switch input:checked + em{color:var(--green);font-weight:600}
+.switch em{font-style:normal;min-width:44px}
+details.past{margin-top:26px}
+details.past summary{cursor:pointer;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);padding:8px 0}
+details.past .list{margin-top:10px;opacity:.85}
+.empty{padding:40px 20px;text-align:center;background:var(--paper);border-radius:24px;border:1.5px dashed rgba(46,69,53,.18);color:var(--ink-soft)}
+.empty .d{font-size:24px;margin-bottom:6px}
+
+/* private times */
+.add-card{background:var(--paper);border-radius:24px;padding:22px;border:1px solid rgba(46,69,53,.08);margin-bottom:22px;box-shadow:0 20px 50px -40px rgba(46,69,53,.45)}
+.add-card h3{font-size:22px;margin-bottom:14px}
+.add-grid{display:grid;grid-template-columns:1fr 1.6fr 1fr;gap:14px;align-items:start}
+.time-pick{display:flex;gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 8px 6px 12px;border-radius:999px;background:var(--blush);color:var(--green);font-size:13.5px;font-weight:500}
+.chip button{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:14px;line-height:1;color:var(--rose-deep)}
+.chip button:hover{background:#fff}
+.quick{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.quick button{font-size:12.5px;padding:5px 10px;border-radius:999px;border:1px dashed rgba(46,69,53,.25);color:var(--ink-soft)}
+.quick button:hover{border-color:var(--rose-deep);color:var(--rose-deep)}
+.add-foot{display:flex;justify-content:flex-end;margin-top:16px;gap:10px;align-items:center;flex-wrap:wrap}
+.day-group{background:var(--paper);border-radius:22px;border:1px solid rgba(46,69,53,.08);overflow:hidden}
+.day-group h4{font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:600;font-size:18px;color:var(--green);padding:14px 20px;background:var(--cream);display:flex;justify-content:space-between;align-items:center}
+.day-group h4 small{font-family:var(--ui);font-weight:400;font-size:12.5px;color:var(--ink-soft)}
+.slot{display:grid;grid-template-columns:110px 1fr auto;gap:12px;align-items:center;padding:12px 20px;border-top:1px dashed rgba(46,69,53,.1)}
+.slot .t{font-weight:600;color:var(--green);font-size:15px}
+.slot .t small{display:block;font-weight:400;font-size:12px;color:var(--ink-soft)}
+.slot .who{font-size:14px}
+.slot .who .open{color:var(--sage);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:12px}
+.slot .who b{color:var(--green)}
+.slot .who a{color:var(--ink-soft);text-decoration:none;margin-right:10px}
+.slot .acts{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+
+/* messages */
+.msg{background:var(--paper);border-radius:22px;border:1px solid rgba(46,69,53,.08);padding:18px 20px;display:grid;gap:8px;position:relative}
+.msg.unread{border-color:var(--rose);box-shadow:0 16px 40px -32px rgba(181,114,127,.8)}
+.msg.unread::before{content:"";position:absolute;left:8px;top:24px;width:7px;height:7px;border-radius:50%;background:var(--rose-deep)}
+.msg-top{display:flex;justify-content:space-between;gap:12px;align-items:start;flex-wrap:wrap}
+.msg-top b{font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:600;font-size:18px;color:var(--green)}
+.msg-top small{display:block;font-size:12.5px;color:var(--ink-soft)}
+.msg-body{font-size:15px;white-space:pre-wrap;word-break:break-word}
+.msg-ct{display:flex;gap:14px;flex-wrap:wrap;font-size:14px}
+.msg-ct a{color:var(--rose-deep)}
+.msg-acts{display:flex;gap:8px;flex-wrap:wrap}
+
+/* subscribers */
+.sub{display:grid;grid-template-columns:1.4fr 1.2fr auto auto;gap:14px;align-items:center;background:var(--paper);border:1px solid rgba(46,69,53,.08);border-radius:18px;padding:14px 18px}
+.sub b{display:block;color:var(--green);font-weight:600;word-break:break-word}
+.sub small{font-size:12.5px;color:var(--ink-soft)}
+.sub .fb{display:flex;gap:6px;flex-wrap:wrap}
+@media (max-width:760px){.sub{grid-template-columns:1fr auto;gap:8px 12px}.sub .fb{grid-column:1/-1;grid-row:2}.sub .switch{grid-row:3;grid-column:1}.sub .icon-btn{grid-row:3;grid-column:2}}
+
+/* settings */
+.set-card{background:var(--paper);border-radius:24px;padding:24px;border:1px solid rgba(46,69,53,.08);display:grid;gap:18px;max-width:720px}
+.set-card .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.help{background:var(--cream);border-radius:18px;padding:16px 18px;font-size:14px;color:var(--ink-soft)}
+.help b{color:var(--green)}
+.help ol{padding-left:18px;margin-top:6px;display:grid;gap:3px}
+
+/* sheet (modal) */
+.sheet{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:14px;visibility:hidden}
+.sheet.open{visibility:visible}
+.sheet-bg{position:absolute;inset:0;background:rgba(46,69,53,.4);backdrop-filter:blur(4px);opacity:0;transition:opacity .4s}
+.sheet.open .sheet-bg{opacity:1}
+.sheet-card{position:relative;width:min(600px,100%);max-height:calc(100svh - 28px);overflow:auto;background:var(--paper);border-radius:28px;padding:28px 26px;transform:translateY(30px) scale(.97);opacity:0;transition:transform .5s var(--ease),opacity .4s;overscroll-behavior:contain}
+.sheet.open .sheet-card{transform:none;opacity:1}
+.sheet-card h3{font-size:26px;margin-bottom:18px;padding-right:40px}
+.sheet-x{position:absolute;top:16px;right:16px;width:38px;height:38px;border-radius:50%;background:var(--cream-2);font-size:22px;color:var(--green)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid .full{grid-column:1/-1}
+.checks{display:flex;gap:18px;flex-wrap:wrap}
+.sheet-foot{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
+.toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,140%);background:var(--green);color:var(--cream);padding:12px 20px;border-radius:14px;font-size:14.5px;z-index:200;transition:transform .5s var(--ease);max-width:calc(100% - 28px);visibility:hidden}
+.toast.show{transform:translate(-50%,0);visibility:visible}
+.toast.bad{background:var(--red)}
+.loading{opacity:.55;pointer-events:none;transition:opacity .2s}
+
+@media (max-width:760px){
+  .top .tag{display:none}
+  .top-actions .btn span{display:none}
+  .stats{grid-template-columns:repeat(3,1fr);gap:8px}
+  .stat{padding:12px}.stat b{font-size:26px}.stat span{font-size:11px}
+  .ccard-top{grid-template-columns:auto 1fr;padding:16px}
+  .cap{grid-column:1/-1;display:flex;align-items:center;gap:12px;text-align:left}
+  .cap b{font-size:22px}.bar{margin:0;flex:1;width:auto}
+  .ccard-actions{padding:0 16px 14px}
+  .person{grid-template-columns:1fr auto;padding:12px 16px;gap:6px 12px}
+  .person .ct{grid-column:1/-1;grid-row:2;font-size:13.5px}
+  .person .switch{grid-row:1;grid-column:2}
+  .person .icon-btn{grid-row:2;grid-column:2;justify-self:end}
+  .person .ct{grid-column:1}
+  .person .note{grid-row:3;grid-column:1/-1}
+  .people-head{padding:12px 16px}
+  .add-grid,.form-grid,.set-card .row{grid-template-columns:1fr}
+  .slot{grid-template-columns:1fr;gap:6px;padding:12px 16px}
+  .slot .acts{justify-content:flex-start}
+  .head h2{font-size:28px}
+  .sheet{place-items:end center;padding:0}
+  .sheet-card{width:100%;border-radius:26px 26px 0 0;padding:24px 18px calc(24px + env(safe-area-inset-bottom));max-height:92svh}
+}
+.brand-logo{display:block;width:140px;aspect-ratio:3812/636;background:var(--rose);-webkit-mask:url(img/mamanew-logo.svg) center/contain no-repeat;mask:url(img/mamanew-logo.svg) center/contain no-repeat}
+.login-card .brand-logo{width:170px}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<section class="login" id="login">
+  <div class="login-card">
+    <a class="logo" href="index.html"><span class="brand-logo" aria-label="Mamanew"></span></a>
+    <h1 class="d">Welcome back, Chana</h1>
+    <p>Log in to manage your classes, sign-ups, and private times.</p>
+    <form id="loginForm">
+      <label class="f"><span>Password</span>
+        <div class="pw-wrap"><input class="in" type="password" id="pw" autocomplete="current-password" required><button type="button" id="pwShow">Show</button></div>
+      </label>
+      <p class="err" id="loginErr" hidden></p>
+      <button class="btn" type="submit" id="loginBtn">Log in</button>
+      <p class="hint" id="demoHint" hidden>Preview mode: the password is <b>demo</b>.</p>
+    </form>
+  </div>
+</section>
+
+<!-- APP -->
+<div id="app" hidden>
+  <header class="top">
+    <div class="wrap top-in">
+      <a class="logo" href="index.html"><span class="brand-logo" aria-label="Mamanew"></span> <span class="tag">Admin</span></a>
+      <div class="top-actions">
+        <a class="btn ghost sm" href="index.html#book" target="_blank">↗ <span>View site</span></a>
+        <button class="btn soft sm" id="logout">Log out</button>
+      </div>
+    </div>
+  </header>
+  <main class="wrap" style="padding-bottom:80px">
+    <div class="demo" id="demoBar" hidden><span>Preview mode: changes are saved only in this browser. On your live site, everything saves for real.</span><button id="resetDemo">Reset sample data</button></div>
+    <nav class="tabs" role="tablist">
+      <button class="tab on" data-view="classes">Group classes</button>
+      <button class="tab" data-view="private">Private times <b id="privCount" hidden></b></button>
+      <button class="tab" data-view="messages">Messages <b id="msgCount" hidden></b></button>
+      <button class="tab" data-view="subscribers">Subscribers <b id="subCount" hidden></b></button>
+      <button class="tab" data-view="settings">Payments</button>
+    </nav>
+
+    <!-- CLASSES -->
+    <section class="view" id="v-classes">
+      <div class="head">
+        <div><h2 class="d">Group classes</h2><p>Add dates, see who signed up, and mark who has paid.</p></div>
+        <button class="btn" id="newClass">+ New class</button>
+      </div>
+      <div class="stats" id="stats"></div>
+      <div class="list" id="classList"></div>
+      <details class="past" id="pastWrap" hidden><summary>Past classes</summary><div class="list" id="pastList"></div></details>
+    </section>
+
+    <!-- PRIVATE -->
+    <section class="view" id="v-private" hidden>
+      <div class="head"><div><h2 class="d">Private times</h2><p>Add the times you're available. Moms pick one on the website and it's held for them.</p></div></div>
+      <div class="add-card">
+        <h3 class="d">Add open times</h3>
+        <div class="add-grid">
+          <label class="f"><span>Date</span><input class="in" type="date" id="slotDate"></label>
+          <div>
+            <label class="f"><span>Start times</span>
+              <div class="time-pick"><input class="in" type="time" id="slotTime" step="900"><button class="btn soft" id="addTime" type="button">Add</button></div>
+            </label>
+            <div class="quick"><button type="button" data-q="10:00">10am</button><button type="button" data-q="13:00">1pm</button><button type="button" data-q="17:00">5pm</button><button type="button" data-q="19:30">7:30pm</button><button type="button" data-q="20:30">8:30pm</button></div>
+            <div class="chips" id="timeChips"></div>
+          </div>
+          <label class="f"><span>Length</span><input class="in" id="slotDur" value="2 hours" placeholder="e.g. 2 hours"></label>
+        </div>
+        <div class="add-foot"><span class="hint" id="slotHint"></span><button class="btn" id="saveSlots">Add these times</button></div>
+      </div>
+      <div class="list" id="slotList"></div>
+      <details class="past" id="pastSlotsWrap" hidden><summary>Past private sessions</summary><div class="list" id="pastSlots"></div></details>
+    </section>
+
+    <!-- MESSAGES -->
+    <section class="view" id="v-messages" hidden>
+      <div class="head"><div><h2 class="d">Messages</h2><p>Everything sent through the contact form on your website.</p></div></div>
+      <div class="list" id="msgList"></div>
+    </section>
+
+    <!-- SUBSCRIBERS -->
+    <section class="view" id="v-subscribers" hidden>
+      <div class="head">
+        <div><h2 class="d">Subscribers</h2><p>Everyone who downloaded a freebie. Copy the newsletter list into your email tool.</p></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn soft sm" data-subcopy="news">Copy newsletter emails</button><button class="btn ghost sm" data-subcopy="all">Copy all emails</button></div>
+      </div>
+      <div class="stats" id="subStats"></div>
+      <div class="list" id="subList"></div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="view" id="v-settings" hidden>
+      <div class="head"><div><h2 class="d">Payments &amp; prices</h2><p>Where the "Complete payment" buttons on your site send people.</p></div></div>
+      <form class="set-card" id="setForm">
+        <div class="row">
+          <label class="f"><span>Group class price ($)</span><input class="in" type="number" min="0" name="groupPrice"></label>
+          <label class="f"><span>Private course price ($)</span><input class="in" type="number" min="0" name="privatePrice"></label>
+        </div>
+        <label class="f"><span>Group class payment link</span><input class="in" name="payGroup" placeholder="https://buy.stripe.com/..."></label>
+        <label class="f"><span>Private course payment link</span><input class="in" name="payPrivate" placeholder="https://buy.stripe.com/..."></label>
+        <div class="help">
+          <b>How to get a payment link</b> (Stripe, Square or PayPal all work):
+          <ol>
+            <li>In Stripe, go to <b>Payment Links → New</b>.</li>
+            <li>Add a product, e.g. "Group Birth Class", with the price.</li>
+            <li>Under After payment, choose to show a confirmation page.</li>
+            <li>Copy the link and paste it above.</li>
+          </ol>
+          If a link is left empty, moms still reserve their spot, and you'll see them as <b>unpaid</b> here so you can follow up.
+        </div>
+        <div><button class="btn" type="submit">Save</button></div>
+      </form>
+    </section>
+  </main>
+</div>
+
+<!-- class editor -->
+<div class="sheet" id="classSheet">
+  <div class="sheet-bg" data-close></div>
+  <div class="sheet-card">
+    <button class="sheet-x" data-close aria-label="Close">×</button>
+    <h3 class="d" id="csTitle">New class</h3>
+    <form id="classForm" class="form-grid">
+      <input type="hidden" name="id">
+      <label class="f full"><span>Class name</span><input class="in" name="title" placeholder="Winter Group Series"></label>
+      <label class="f"><span>First class date</span><input class="in" type="date" name="startDate" required></label>
+      <label class="f"><span>Last class date (optional)</span><input class="in" type="date" name="endDate"></label>
+      <label class="f full"><span>Schedule (shown on site)</span><input class="in" name="schedule" placeholder="4 Tuesday evenings · 7:30–9:30pm"></label>
+      <label class="f"><span>Start time</span><input class="in" type="time" name="time"></label>
+      <label class="f"><span>Location</span><input class="in" name="location" placeholder="Monsey, NY"></label>
+      <label class="f"><span>Spots (max moms)</span><input class="in" type="number" min="1" max="50" name="capacity" value="5"></label>
+      <label class="f"><span>Price ($)</span><input class="in" type="number" min="0" name="price" value="400"></label>
+      <label class="f full"><span>Note (optional, shown on site)</span><input class="in" name="notes" placeholder="Partners welcome at the last session"></label>
+      <div class="checks full">
+        <label class="switch"><input type="checkbox" name="closed"><em>Registration closed</em></label>
+        <label class="switch"><input type="checkbox" name="hidden"><em>Hide from website</em></label>
+      </div>
+      <p class="err full" id="csErr" hidden></p>
+    </form>
+    <div class="sheet-foot"><button class="btn ghost" data-close>Cancel</button><button class="btn" id="csSave">Save class</button></div>
+  </div>
+</div>
+
+<!-- add person -->
+<div class="sheet" id="personSheet">
+  <div class="sheet-bg" data-close></div>
+  <div class="sheet-card">
+    <button class="sheet-x" data-close aria-label="Close">×</button>
+    <h3 class="d" id="psTitle">Add someone</h3>
+    <form id="personForm" class="form-grid">
+      <label class="f full"><span>Name</span><input class="in" name="name" required></label>
+      <label class="f"><span>Phone</span><input class="in" type="tel" name="phone"></label>
+      <label class="f"><span>Email</span><input class="in" type="email" name="email"></label>
+      <label class="f"><span>Due date</span><input class="in" name="due"></label>
+      <div class="checks" style="align-self:end;padding-bottom:10px"><label class="switch"><input type="checkbox" name="paid"><em>Already paid</em></label></div>
+      <label class="f full"><span>Notes</span><textarea class="in" name="notes"></textarea></label>
+      <p class="err full" id="psErr" hidden></p>
+    </form>
+    <div class="sheet-foot"><button class="btn ghost" data-close>Cancel</button><button class="btn" id="psSave">Add</button></div>
+  </div>
+</div>
+
+<div class="sheet" id="askSheet">
+  <div class="sheet-bg" data-close></div>
+  <div class="sheet-card" style="width:min(440px,100%)">
+    <h3 class="d" style="font-size:22px">Are you sure?</h3>
+    <p id="askMsg" style="color:var(--ink-soft);white-space:pre-wrap;word-break:break-word"></p>
+    <div class="sheet-foot"><button class="btn ghost" data-close>Cancel</button><button class="btn" id="askOk">Yes</button></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script type="module" src="js/admin.mjs"></script>
+</body>
+</html>
